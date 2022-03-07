@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Mohave:wght@300&display=swap%27');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.container_titulo{
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 120px;
+}
+.fundo3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-cadastro{
+    border: 6px solid #C65454;
+    background-color: #FFAA97;
+    width: 820px;
+    height: 672px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box-cadastro-inputs{
+    height: 672px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box-cadastro-imagem{
+    height: 672px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box-cadastro-img {
+    width: 125px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-cadastro{
+    width: 316px;
+    height: 55px;
+    border-radius: 10px;
+    border: unset;
+    padding-left: 20px;
+
+}
+
+.input-imagem{
+    width: 150px;
+    height: 55px;
+}
+
+.botao-cadastro{
+    width: 150px;
+    height: 55px;
+}
