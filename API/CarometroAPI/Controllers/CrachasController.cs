@@ -61,7 +61,7 @@ namespace CarometroAPI.Controllers
         {
             bool validado = _crachaRepository.ValidarToken(idCracha);
 
-            if (validado == true)
+            if (validado == false)
             {
                 return BadRequest("O Crachá informado está vencido!");
             }
@@ -125,7 +125,7 @@ namespace CarometroAPI.Controllers
                 Cracha crachaBuscado = _crachaRepository.BuscarPorId(idCracha);
                 if (crachaBuscado != null)
                 {
-                        _crachaRepository.GerarToken(idCracha);
+                    _crachaRepository.GerarToken(idCracha);
                 }
                 else
                 {

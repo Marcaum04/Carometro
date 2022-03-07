@@ -20,18 +20,24 @@
             </summary>
             <returns>Uma lista de alunos</returns>
         </member>
+        <member name="M:CarometroAPI.Controllers.AlunosController.ListarAlunos">
+            <summary>
+            Lista todos os Alunos existentes
+            </summary>
+            <returns>Uma lista de alunos</returns>
+        </member>
+        <member name="M:CarometroAPI.Controllers.AlunosController.ListarAluno">
+            <summary>
+            Lista todos os Alunos existentes
+            </summary>
+            <returns>Uma lista de alunos</returns>
+        </member>
         <member name="M:CarometroAPI.Controllers.AlunosController.BuscarPorId(System.Int32)">
             <summary>
             Busca um aluno pelo id
             </summary>
             <param name="idAluno">id do aluno a ser buscado</param>
             <returns>Um aluno encontrado com status code - 200</returns>
-        </member>
-        <member name="M:CarometroAPI.Controllers.AlunosController.ListarAluno">
-            <summary>
-            Busca um aluno pelo id de usuário
-            </summary>
-            <returns>Uma aluno</returns>
         </member>
         <member name="M:CarometroAPI.Controllers.AlunosController.Cadastrar(CarometroAPI.Domains.Aluno)">
             <summary>
@@ -112,6 +118,28 @@
             <param name="idCracha">id do Cracha a ser deletado</param>
             <returns>Um status code 204 - No content</returns>
         </member>
+        <member name="P:CarometroAPI.Controllers.ImagensController._imagemRepository">
+            <summary>
+            Objeto que irá receber todos os métodos da interface
+            </summary>
+        </member>
+        <member name="M:CarometroAPI.Controllers.ImagensController.#ctor">
+            <summary>
+            Instancia o objeto para que haja referência às implementações no repositório
+            </summary>
+        </member>
+        <member name="M:CarometroAPI.Controllers.ImagensController.Listar">
+            <summary>
+            Lista todas as Imagens existentes
+            </summary>
+            <returns>Uma lista de imagens</returns>
+        </member>
+        <member name="M:CarometroAPI.Controllers.ImagensController.salvarImagem(Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
+            <summary>
+            Consulta a foto de perfil de um usuário
+            </summary>
+            <returns>A foto em base64</returns>
+        </member>
         <member name="P:CarometroAPI.Controllers.InstituicoesController._instituicaoRepository">
             <summary>
             Objeto que irá receber todos os métodos da interface
@@ -180,6 +208,12 @@
             </summary>
             <returns>Uma lista de professores</returns>
         </member>
+        <member name="M:CarometroAPI.Controllers.ProfessoresController.ListarProf">
+            <summary>
+            Lista o professor pelo usuário do Jti
+            </summary>
+            <returns>Uma lista de alunos</returns>
+        </member>
         <member name="M:CarometroAPI.Controllers.ProfessoresController.BuscarPorId(System.Int32)">
             <summary>
             Busca um professor pelo id
@@ -231,17 +265,24 @@
             <param name="idUsuario">id do usuário a ser buscado</param>
             <returns>Um usuário encontrado com status code - 200</returns>
         </member>
-        <member name="M:CarometroAPI.Controllers.UsuariosController.salvaImagem">
+        <member name="M:CarometroAPI.Controllers.UsuariosController.BuscarPorEmail(System.String)">
+            <summary>
+            Bus um usuário pelo email
+            </summary>
+            <param name="Email">email do usuário a ser buscado</param>
+            <returns>Um usuário encontrado com status code - 200</returns>
+        </member>
+        <member name="M:CarometroAPI.Controllers.UsuariosController.consultarImagem">
+            <summary>
+            Consulta a imagem do usuáro
+            </summary>
+            <returns>Retorna um base64 e a um status Code - OK</returns>
+        </member>
+        <member name="M:CarometroAPI.Controllers.UsuariosController.salvarImagem(Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
             <summary>
             Consulta a foto de perfil de um usuário
             </summary>
             <returns>A foto em base64</returns>
-        </member>
-        <member name="M:CarometroAPI.Controllers.UsuariosController.ListarMeu">
-            <summary>
-            Consulta os dados de um único usuário
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:CarometroAPI.Controllers.UsuariosController.Cadastrar(CarometroAPI.Domains.Usuario)">
             <summary>
@@ -249,13 +290,6 @@
             </summary>
             <param name="novoUsuario">Usuario a ser cadastrado</param>
             <returns>Um status code 201 - Created</returns>
-        </member>
-        <member name="M:CarometroAPI.Controllers.UsuariosController.postDir(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            Salva uma imagem de perfil do usuário
-            </summary>
-            <param name="arquivo">imagem a ser salva</param>
-            <returns>Status code 200 - OK</returns>
         </member>
         <member name="M:CarometroAPI.Controllers.UsuariosController.Atualizar(CarometroAPI.Domains.Usuario)">
             <summary>
@@ -270,6 +304,12 @@
             </summary>
             <param name="idUsuario">id do Usuário a ser deletado</param>
             <returns>Um status code 204 - No content</returns>
+        </member>
+        <member name="M:CarometroAPI.Controllers.UsuariosController.ListarMeu">
+            <summary>
+            Consulta os dados de um único usuário
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

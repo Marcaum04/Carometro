@@ -37,6 +37,28 @@ namespace CarometroAPI.Controllers
         }
 
         /// <summary>
+        /// Lista todos os Alunos existentes
+        /// </summary>
+        /// <returns>Uma lista de alunos</returns>
+        [HttpGet("viewmodel")]
+        public IActionResult ListarAlunos()
+        {
+            return Ok(_alunoRepository.ListarImagem());
+        }
+
+        /// <summary>
+        /// Lista todos os Alunos existentes
+        /// </summary>
+        /// <returns>Uma lista de alunos</returns>
+        [HttpGet("minha")]
+        public IActionResult ListarAluno()
+        {
+            int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+            return Ok(_alunoRepository.ListarAluno(idUsuario));
+        }
+
+
+        /// <summary>
         /// Busca um aluno pelo id
         /// </summary>
         /// <param name="idAluno">id do aluno a ser buscado</param>
@@ -51,17 +73,6 @@ namespace CarometroAPI.Controllers
                 return NotFound("O Aluno informado não existe!");
             }
             return Ok(alunoBuscado);
-        }
-
-        /// <summary>
-        /// Busca um aluno pelo id de usuário
-        /// </summary>
-        /// <returns>Uma aluno</returns>
-        [HttpGet("periodo")]
-        public IActionResult ListarAluno()
-        {
-            int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-            return Ok(_alunoRepository.alunoUsuario(idUsuario));
         }
 
         /// <summary>

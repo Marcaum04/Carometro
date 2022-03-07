@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace CarometroAPI.Controllers
 {
@@ -55,14 +56,32 @@ namespace CarometroAPI.Controllers
         }
 
         /// <summary>
-        /// Consulta a foto de perfil de um usuário
+        /// Bus um usuário pelo email
         /// </summary>
-        /// <returns>A foto em base64</returns>
+        /// <param name="Email">email do usuário a ser buscado</param>
+        /// <returns>Um usuário encontrado com status code - 200</returns>
+        [HttpGet("email/{Email}")]
+        public IActionResult BuscarPorEmail(string Email)
+        {
+            Usuario usuarioBuscado = _usuarioRepository.BuscarPorEmail(Email);
+
+            if (usuarioBuscado == null)
+            {
+                return NotFound("O Usuário informado não existe!");
+            }
+            return Ok(usuarioBuscado);
+        }
+
+        /// <summary>
+        /// Consulta a imagem do usuáro
+        /// </summary>
+        /// <returns>Retorna um base64 e a um status Code - OK</returns>
         [HttpGet("imagem")]
-        public IActionResult salvaImagem()
+        public IActionResult consultarImagem()
         {
             try
             {
+
                 int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
                 string base64 = _usuarioRepository.ConsultarImagem(idUsuario);
@@ -77,21 +96,29 @@ namespace CarometroAPI.Controllers
         }
 
         /// <summary>
-        /// Consulta os dados de um único usuário
+        /// Consulta a foto de perfil de um usuário
         /// </summary>
-        /// <returns></returns>
-        [HttpGet("uses")]
-        public IActionResult ListarMeu()
+        /// <returns>A foto em base64</returns>
+        [HttpPost("imagem")]
+        public IActionResult salvarImagem(IFormFile foto, int idUsuario)
         {
             try
             {
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                if (foto.Length > 500000000) //5MB
+                    return BadRequest(new { mensagem = "O tamanho máximo da imagem foi atingido." });
 
-                return Ok(_usuarioRepository.ListarMeu(idUsuario));
+                string extensao = foto.FileName.Split('.').Last();
+
+                 idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                _usuarioRepository.SalvarImagem(idUsuario, foto);
+
+                return Ok();
+
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -106,33 +133,6 @@ namespace CarometroAPI.Controllers
             _usuarioRepository.Cadastrar(novoUsuario);
 
             return StatusCode(201);
-        }
-
-        /// <summary>
-        /// Salva uma imagem de perfil do usuário
-        /// </summary>
-        /// <param name="arquivo">imagem a ser salva</param>
-        /// <returns>Status code 200 - OK</returns>
-        [HttpPost("imagem")]
-        public IActionResult postDir(IFormFile arquivo)
-        {
-            try
-            {
-                if (arquivo.Length < 5000) //5MB
-                    return BadRequest(new { mensagem = "O tamanho máximo da imagem foi atingido." });
-                string extensao = arquivo.FileName.Split('.').Last();
-
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-                _usuarioRepository.SalvarImagem(arquivo, idUsuario);
-
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         /// <summary>
@@ -174,6 +174,25 @@ namespace CarometroAPI.Controllers
             _usuarioRepository.Deletar(idUsuario);
 
             return StatusCode(204);
+        }
+
+        /// <summary>
+        /// Consulta os dados de um único usuário
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("uses")]
+        public IActionResult ListarMeu()
+        {
+            try
+            {
+                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                return Ok(_usuarioRepository.ListarMeu(idUsuario));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest( ex);
+            }
         }
     }
 }

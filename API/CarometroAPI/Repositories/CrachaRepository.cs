@@ -11,7 +11,7 @@ namespace CarometroAPI.Repositories
     public class CrachaRepository : ICrachaRepository
     {
         CarometroContext ctx = new CarometroContext();
-        
+
         public void Atualizar(Cracha crachaAtualizado)
         {
             Cracha crachaBuscado = BuscarPorId(crachaAtualizado.IdCracha);
@@ -35,7 +35,7 @@ namespace CarometroAPI.Repositories
         {
             return ctx.Crachas.FirstOrDefault(u => u.IdCracha == idCracha);
         }
-            
+
         public void Cadastrar(Cracha novoCracha)
         {
             ctx.Crachas.Add(novoCracha);
@@ -67,7 +67,7 @@ namespace CarometroAPI.Repositories
 
             ctx.SaveChanges();
 
-            }
+        }
 
         public List<Cracha> Listar()
         {
@@ -82,7 +82,7 @@ namespace CarometroAPI.Repositories
 
             TimeSpan verificacao = agora - antes;
 
-            if(verificacao.TotalMinutes > 5)
+            if (verificacao.TotalMinutes > 5)
             {
                 return true;
             }
@@ -94,6 +94,5 @@ namespace CarometroAPI.Repositories
 
         }
     }
-    
-}
 
+}
